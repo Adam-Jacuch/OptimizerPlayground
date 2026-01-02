@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ML Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="name">ML Playground</div>
+      <div class="sub">Drop points • Train tiny MLP</div>
+    </div>
+
+    <div class="stats">
+      <span><strong id="pointsCount">0</strong> pts</span>
+      <span>loss <strong id="lossValue">—</strong></span>
+      <span>steps <strong id="stepsValue">0</strong></span>
+      <span><strong id="statusValue">Idle</strong></span>
+
+      <button id="viewToggleBtn">Graph</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="controls">
+      <div class="row">
+        <label class="field">
+          <span>Layers</span>
+          <input id="layersInput" type="text" value="2,8,8,1" />
+        </label>
+
+        <label class="field">
+          <span>Act</span>
+          <select id="activationSelect">
+            <option value="relu">relu</option>
+            <option value="leaky_relu">leaky relu</option>
+            <option value="elu">elu</option>
+            <option value="gelu">gelu</option>
+            <option value="swish">swish</option>
+            <option value="tanh">tanh</option>
+            <option value="sigmoid">sigmoid</option>
+            <option value="softsign">softsign</option>
+            <option value="linear">linear</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row buttons">
+        <button id="buildBtn" class="primary">Build</button>
+        <button id="resetBtn">Reset</button>
+        <button id="trainBtn" class="primary">Train</button>
+        <button id="stopBtn">Stop</button>
+        <button id="trainStepBtn">Step</button>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <label class="field">
+          <span>LR</span>
+          <input id="lrInput" type="number" step="0.001" value="0.05" />
+        </label>
+        <label class="field">
+          <span>Mom</span>
+          <input id="momentumInput" type="number" step="0.01" value="0.9" />
+        </label>
+        <label class="field">
+          <span>Steps</span>
+          <input id="stepsPerTick" type="number" step="1" value="10" />
+        </label>
+      </div>
+
+      <div class="row">
+        <label class="field">
+          <span>WD</span>
+          <input id="wdInput" type="number" step="0.0001" value="0.0000" />
+        </label>
+        <label class="field">
+          <span>L2</span>
+          <input id="l2Input" type="number" step="0.0001" value="0.0000" />
+        </label>
+        <label class="field">
+          <span>Clip</span>
+          <input id="clipInput" type="number" step="0.1" value="0.0" />
+        </label>
+      </div>
+
+      <hr />
+
+      <div class="row buttons">
+        <button id="class0Btn" class="toggle active">Class A</button>
+        <button id="class1Btn" class="toggle">Class B</button>
+
+        <button id="eraseBtn" class="toggle">Erase</button>
+
+        <label class="field grow">
+          <span>Brush</span>
+          <input id="brushInput" type="range" min="2" max="16" value="6" />
+        </label>
+      </div>
+
+      <div class="row buttons">
+        <button id="bgToggleBtn">Decision map</button>
+        <button id="clearBtn" class="danger">Clear</button>
+      </div>
+
+      <div class="hint">Tip: hold <kbd>Shift</kbd> and drag to spray points.</div>
+
+      <div class="runs">
+      <div class="runsHeader">
+        <span>Runs</span>
+        <button id="newRunBtn">New</button>
+      </div>
+      <div id="runsList" class="runsList"></div>
+      </div>
+    </aside>
+
+    <section class="plot">
+      <canvas id="canvas" width="520" height="520"></canvas>
+
+      <div class="legend">
+        <span><i class="dot a"></i> Class A</span>
+        <span><i class="dot b"></i> Class B</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/numjs.min.js"></script>
+  <script src="ml.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
